@@ -17,6 +17,7 @@ const Environment = android.os.Environment;
 const File = java.io.File;
 const ContentValues = android.content.ContentValues;
 const Uri = android.net.Uri;
+const ContentUris = android.content.ContentUris;
 
 declare const java, android;
 
@@ -323,6 +324,8 @@ export class Mediafilepicker extends Observable implements MediaPickerInterface 
                         let item = list[index];
 
                         let file = {
+                            uri: ContentUris.withAppendedId(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, item.getId()),
+                            size: item.getSize(),
                             type: 'image',
                             file: item.getPath(),
                             rawData: item
@@ -346,6 +349,8 @@ export class Mediafilepicker extends Observable implements MediaPickerInterface 
                         let item = list[index];
 
                         let file = {
+                            uri: ContentUris.withAppendedId(android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI, item.getId()),
+                            size: item.getSize(),
                             type: 'video',
                             file: item.getPath(),
                             rawData: item
@@ -368,6 +373,8 @@ export class Mediafilepicker extends Observable implements MediaPickerInterface 
                         let item = list[index];
 
                         let file = {
+                            uri: ContentUris.withAppendedId(android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, item.getId()),
+                            size: item.getSize(),
                             type: 'audio',
                             file: item.getPath(),
                             rawData: item
@@ -391,6 +398,8 @@ export class Mediafilepicker extends Observable implements MediaPickerInterface 
                         let item = list[index];
 
                         let file = {
+                            uri: android.provider.MediaStore.Files.getContentUri("external", item.getId()),
+                            size: item.getSize(),
                             type: 'normalFile',
                             file: item.getPath(),
                             rawData: item
@@ -406,6 +415,7 @@ export class Mediafilepicker extends Observable implements MediaPickerInterface 
 
                     let rawData = new File(this.captureFilePath);
                     let file = {
+                        uri: this.captureContentUrl,
                         type: 'capturedImage',
                         file: this.captureFilePath,
                         rawData: rawData
@@ -422,6 +432,7 @@ export class Mediafilepicker extends Observable implements MediaPickerInterface 
 
                     let rawData = new File(this.captureFilePath);
                     let file = {
+                        uri: this.captureContentUrl,
                         type: 'capturedVideo',
                         file: this.captureFilePath,
                         rawData: rawData
